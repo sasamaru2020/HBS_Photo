@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HBS Avatar Photo Contest | ほぼ100円ショップ</title>
+  <meta name="description" content="HBS Editorを使ったアバターが写っているVRChatフォトコン。テーマは「私たちのメタバース！VRChat！！」。応募期間は2026年7月5日から8月5日まで。">
+  <meta property="og:title" content="HBS Avatar Photo Contest">
+  <meta property="og:description" content="テーマは「私たちのメタバース！VRChat！！」。HBS Editorを使ったアバターで、VRChatのワンシーンを写真に残してください。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hbs-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root {
+      --ink: #172033;
+      --soft: #5f6675;
+      --paper: #fff9f3;
+      --panel: #ffffff;
+      --line: rgba(23, 32, 51, .13);
+      --navy: #14243c;
+      --coral: #ff8581;
+      --sun: #ffd779;
+      --blue: #446f9f;
+      --shadow: 0 18px 48px rgba(33, 30, 45, .12);
+      --radius: 8px;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.85;
+      letter-spacing: 0;
+      text-rendering: optimizeLegibility;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 249, 243, .9);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .brand img { width: 76px; }
+    .nav {
+      display: flex;
+      gap: 18px;
+      color: var(--soft);
+      font-size: .92rem;
+      font-weight: 800;
+    }
+    .nav a { text-decoration: none; }
+
+    .hero {
+      min-height: calc(100svh - 68px);
+      display: grid;
+      align-items: end;
+      background:
+        radial-gradient(circle at 74% 18%, rgba(255, 215, 121, .46), transparent 28rem),
+        radial-gradient(circle at 18% 24%, rgba(255, 133, 129, .24), transparent 24rem),
+        linear-gradient(135deg, #fff, #fff9f3 50%, #fff0e9);
+    }
+    .hero-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 8svh 0 10svh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      align-items: end;
+      gap: 36px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      margin: 0 0 18px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .7);
+      color: var(--blue);
+      font-size: .92rem;
+      font-weight: 900;
+    }
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 6.6rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .hero p {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: var(--soft);
+      font-size: clamp(1.02rem, 2vw, 1.25rem);
+      font-weight: 700;
+    }
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border-radius: var(--radius);
+      background: var(--navy);
+      color: #fff;
+      font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 12px 28px rgba(20, 36, 60, .18);
+    }
+    .button.sub {
+      background: #fff;
+      color: var(--navy);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 28px rgba(20, 36, 60, .08);
+    }
+    .summary {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .84);
+      box-shadow: var(--shadow);
+    }
+    .summary img {
+      width: 56%;
+      margin: 0 auto 12px;
+      filter: drop-shadow(0 12px 20px rgba(20, 36, 60, .14));
+    }
+    .summary dl { margin: 0; }
+    .summary div {
+      display: grid;
+      grid-template-columns: 7em 1fr;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+    .summary dt { color: var(--soft); font-weight: 800; }
+    .summary dd { margin: 0; font-weight: 900; }
+
+    section { padding: 78px 0; }
+    .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .kicker {
+      color: var(--coral);
+      font-size: .88rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 8px 0 0;
+      color: var(--navy);
+      font-size: clamp(1.9rem, 4vw, 3.4rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 780px;
+      margin-top: 16px;
+      color: var(--soft);
+      font-size: 1.06rem;
+    }
+    .grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .two { grid-template-columns: repeat(2, 1fr); }
+    .card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 10px; color: var(--navy); font-size: 1.16rem; }
+    .card p { margin: 0; color: var(--soft); }
+    .value {
+      margin-top: 8px;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.6rem);
+      line-height: 1.15;
+      font-weight: 900;
+    }
+    .theme {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .message p + p { margin-top: 1em; }
+    .theme-box {
+      display: grid;
+      align-content: center;
+      background: var(--navy);
+      color: #fff;
+    }
+    .theme-box span { color: rgba(255,255,255,.7); font-weight: 800; }
+    .theme-box strong {
+      display: block;
+      margin-top: 12px;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 1.08;
+    }
+    .notice {
+      margin-top: 22px;
+      padding: 20px 24px;
+      border: 1px solid rgba(255, 133, 129, .35);
+      border-radius: var(--radius);
+      background: rgba(255, 133, 129, .08);
+      color: #6a4146;
+    }
+    .closing {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+    }
+    .closing h2 { color: #fff; }
+    .closing .lead {
+      margin-left: auto;
+      margin-right: auto;
+      color: rgba(255,255,255,.76);
+    }
+    .hashtag {
+      display: inline-flex;
+      margin-top: 28px;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--navy);
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    footer {
+      padding: 28px 0;
+      background: #101827;
+      color: rgba(255,255,255,.64);
+      font-size: .88rem;
+    }
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero { min-height: auto; }
+      .hero-inner, .theme, .grid, .two { grid-template-columns: 1fr; }
+      .hero-inner { padding-top: 12svh; }
+      .summary { max-width: 480px; }
+    }
+    @media (max-width: 560px) {
+      .brand img { width: 58px; }
+      .brand span { font-size: .9rem; }
+      .hero-inner, .container { width: min(100% - 24px, 1120px); }
+      h1 { font-size: clamp(2.25rem, 15vw, 4.1rem); }
+      section { padding: 56px 0; }
+      .card, .summary { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html">
+        <img src="assets/hobohyakuen-shop-logo.png" alt="ほぼ100円ショップ">
+        <span>HBS Avatar Photo Contest</span>
+      </a>
+      <nav class="nav">
+        <a href="#theme">テーマ</a>
+        <a href="#prize">賞品</a>
+        <a href="#entry">参加方法</a>
+        <a href="#rules">規定</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">HBSを使ったアバターフォトコンを開催します</span>
+          <h1>私たちのメタバース！VRChat！！</h1>
+          <p>VRChatの中で出会った近未来感、日常、友情、冒険、幻想的な世界。あなたが「これが私たちのいる世界だ」と思う一枚を、写真で見せてください。</p>
+          <div class="actions">
+            <a class="button" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto を見る</a>
+            <a class="button sub" href="#entry">参加方法を確認</a>
+          </div>
+        </div>
+        <aside class="summary">
+          <img src="assets/hbs-logo.png" alt="HBS">
+          <dl>
+            <div><dt>応募期間</dt><dd>2026.7.5 - 8.5</dd></div>
+            <div><dt>結果発表</dt><dd>2026.8.8</dd></div>
+            <div><dt>投稿タグ</dt><dd>#HobohyakuenPhoto</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid">
+        <article class="card">
+          <h3>開催 / 応募期間</h3>
+          <p class="value">2026.7.5 - 8.5</p>
+        </article>
+        <article class="card">
+          <h3>結果発表</h3>
+          <p class="value">2026.8.8</p>
+        </article>
+        <article class="card">
+          <h3>X投稿タグ</h3>
+          <p class="value">#HobohyakuenPhoto</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="theme">
+      <div class="container theme">
+        <article class="card message">
+          <span class="kicker">Theme</span>
+          <h2>テーマ</h2>
+          <p class="lead">「私たちのメタバース！VRChat！！」</p>
+          <p>メタバースの世界に慣れてきてしまっているかもしれませんが、私たちは今、とても近未来な世界にいると思います。</p>
+          <p>遠く離れたフレンドと、身振り手振りを交えながら話すことができたり、無重力の空間で浮いてみたり、空を飛んだり、ホラー体験をしたり。VRChatの中で、私たちはたくさんの不思議で楽しい体験をしてきました。</p>
+          <p>まだVRChatを知らない人に「私たちがいる世界はこれだ！！！」と思ってもらえるような写真を、ぜひ撮っていただければと思います。</p>
+        </article>
+        <article class="card theme-box">
+          <span>あなたの思う</span>
+          <strong>VRChatの<br>ワンシーンを。</strong>
+        </article>
+      </div>
+    </section>
+
+    <section id="prize">
+      <div class="container">
+        <span class="kicker">Prize</span>
+        <h2>賞品</h2>
+        <p class="lead">入賞された方にはAmazonギフトカードをお送りします。</p>
+        <div class="grid two">
+          <article class="card">
+            <h3>最優秀賞 / 1名</h3>
+            <p class="value">10,000円分</p>
+            <p>Amazonギフトカード</p>
+          </article>
+          <article class="card">
+            <h3>審査員賞 / 3名</h3>
+            <p class="value">5,000円分</p>
+            <p>Amazonギフトカード</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="entry">
+      <div class="container">
+        <span class="kicker">Entry</span>
+        <h2>参加方法</h2>
+        <p class="lead">一言を添えての投稿も大歓迎です。</p>
+        <div class="grid">
+          <article class="card">
+            <h3>HBS Editorを使用したアバターで撮影する</h3>
+            <p>被写体の中にHBS Editorを使用したアバターが1人いれば参加できます。</p>
+          </article>
+          <article class="card">
+            <h3>Xに投稿する</h3>
+            <p>ハッシュタグ <strong>#HobohyakuenPhoto</strong> をつけて投稿してください。</p>
+          </article>
+          <article class="card">
+            <h3>規定を確認する</h3>
+            <p>下記の規定を守れる方が対象です。投稿前に一度だけ確認をお願いします。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="container">
+        <span class="kicker">Rules</span>
+        <h2>フォトコンの規定</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>合成・加筆はご遠慮ください</h3>
+            <p>ポスターやイラストではなく、VRChat内で撮影したワンシーンを募集します。</p>
+          </article>
+          <article class="card">
+            <h3>インテグラルカメラギミックは禁止です</h3>
+            <p>今回はインテグラルカメラギミックのみ禁止とさせてください。</p>
+          </article>
+          <article class="card">
+            <h3>複数人で撮る場合</h3>
+            <p>複数人で撮影する場合は、代表者が投稿してください。</p>
+          </article>
+        </div>
+        <p class="notice">堅苦しくなってしまいましたが、VRChat内でできることのワンシーンを切り取ってほしいと思っています。ご理解いただけた方のみ参加していただけると嬉しいです。</p>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="container">
+        <h2>あなたの思うメタバースを、写真で。</h2>
+        <p class="lead">近未来感、日常、友情、冒険、幻想的な世界、面白い瞬間。テーマのとらえ方は自由です。</p>
+        <a class="hashtag" href="https://x.com/hashtag/HobohyakuenPhoto" target="_blank" rel="noopener">#HobohyakuenPhoto</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>ほぼ100円ショップ / HBS Editor</span>
+      <span>本企画はVRChat、Amazonの公式企画ではありません。</span>
+    </div>
+  </footer>
+</body>
+</html>
